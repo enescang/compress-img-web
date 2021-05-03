@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-const API_URL = "http://3.133.123.20";
+const API_URL = "https://compres-img.herokuapp.com";
 
 const Home = () => {
 
