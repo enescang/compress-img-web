@@ -17,12 +17,28 @@ const Home = () => {
         setImage(event.target.files[0]);
     };
 
+    const handleRequest =()=>{
+
+    }
+
     const GIF_REQUEST = async () => {
         let formData = new FormData();
         formData.append('img', image);
         formData.append('scale', Number(gifProps.scale));
 
         const Request = await fetch(API_URL + "/gif",
+            {
+                body: formData,
+                method: "post"
+            });
+        const result = await Request.json();
+        alert(JSON.stringify(result))
+    }
+
+    const SVG_REQUEST = async () => {
+        let formData = new FormData();
+        formData.append('img', image);
+        const Request = await fetch(API_URL + "/svg",
             {
                 body: formData,
                 method: "post"
@@ -65,7 +81,7 @@ const Home = () => {
                     <div>
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={GIF_REQUEST}
+                            onClick={SVG_REQUEST}
                         >
                             Button
                         </button>
