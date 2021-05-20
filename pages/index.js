@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-//const API_URL = "https://compres-img.herokuapp.com";
-const API_URL = "http://localhost:3310";
+const API_URL = "https://compres-img.herokuapp.com";
+//const API_URL = "http://localhost:3310";
 
 const Home = () => {
 
