@@ -118,6 +118,14 @@ const About = () => {
                         videoId="Ri-_Nltok4U"
                     />
                 </div>
+
+                <div>
+                    <BasicCard
+                        title="5. 🥳Kullanıcı Arayüz İyileştirmesi"
+                        content="Web için küçük bizim için güzel bir adım"
+                        videoId="DRfTXtgfQno"
+                    />
+                </div>
                 <div>
 
                 </div>
