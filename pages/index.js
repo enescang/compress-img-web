@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-const API_URL = "https://compres-img.herokuapp.com";
-// const API_URL = "http://localhost:3310";
+//const API_URL = "https://compres-img.herokuapp.com";
+const API_URL = "http://localhost:3310";
 
 const Home = () => {
 
@@ -12,6 +12,7 @@ const Home = () => {
     const [algorithm, setAlgorithm] = useState(null);
     const [fileExtension, setFileExtension] = useState(null);
     const [gifProps, setGifProps] = useState({ scale: 0 });
+    const [pngProps, setPngProps] = useState({ algorithm: 'pngout', quality: 100 });
     const [statistics, setStatistics] = useState(null)
 
     const changeImage = async (event) => {
@@ -41,6 +42,10 @@ const Home = () => {
 
         if (extension == 'svg') {
             return SVG_REQUEST();
+        }
+
+        if (extension == 'png') {
+            return PNG_REQUEST();
         }
     }
 
@@ -78,6 +83,24 @@ const Home = () => {
         alert(JSON.stringify(result))
     }
 
+    const PNG_REQUEST = async () => {
+        let formData = new FormData();
+        formData.append('img', image);
+        formData.append('engine', pngProps.algorithm);
+        formData.append('quality', pngProps.quality);
+        const Request = await fetch(API_URL + "/png",
+            {
+                body: formData,
+                method: "post"
+            });
+        const result = await Request.json();
+        if (Request.status != 200) {
+            return alert('İstek başarısız PNG');
+        }
+        setStatistics(result);
+        alert(JSON.stringify(result))
+    }
+
     return (
         <div className={styles.container}>
             <Head>
@@ -90,12 +113,15 @@ const Home = () => {
                     Friday Team <a href="https://nextjs.org">Resim Sıkıştırma</a>
                 </h1>
 
-                <p className={styles.description}>
-                    Bir algoritma ve resim seçiniz{' '}
-                    <code className={styles.code}>---</code>
+                <p className={`text-2xl text-blue-600 p-2`}>
+                    <a href="/about">
+                  
+                Hakkımızda Sayfamız
+                    </a>
+                    {/* <code className={styles.code}>---</code> */}
                 </p>
 
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <input
                         directory=""
                         type="file"
@@ -103,18 +129,11 @@ const Home = () => {
                         onChange={changeImage}
                     />
                     <div>
-                        <select name="algorithm" class="px-4 py-3 rounded" onChange={(e) => setAlgorithm(e.target.value)}>
-                            <option value="gif"></option>
-                            <option >PNG</option>
-                        </select>
-
-                    </div>
-                    <div>
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             onClick={handleRequest}
                         >
-                            Button
+                            BAŞLAT
                         </button>
                     </div>
                 </div>
@@ -140,13 +159,49 @@ const Home = () => {
                                 </div>
                             </div>
                         </>
+                    }
+                    {
+                        fileExtension == 'png' &&
+                        <>
+                            <div className="">
+                                <div className="w-full" >
+                                    <p>PNG için bir algoritma seçiniz</p>
+                                    <select 
+                                    name="png_algorithm" 
+                                    class="px-10 py-3 rounded" 
+                                    onChange={(e) => setPngProps({algorithm:e.target.value, quality:pngProps.quality})}>
+                                        <option value="pngout">PNGOUT</option>
+                                        <option value="pngcrush">PNGCRUSH</option>
+                                        <option value="webp">PNG {"->"} WEBP</option>
+                                    </select>
+
+                                    {
+                                        pngProps.algorithm == 'webp' &&
+                                        <>
+                                        <p>Resmin kalitesini 1-100 arasında bir değer olarak seçiniz</p>
+                                            <p>quality Değeri: {Number(pngProps.quality).toFixed(2)}</p>
+                                            <input
+                                                type="range"
+                                                min="1"
+                                                max="100"
+                                                value={pngProps.quality}
+                                                className={styles.slider}
+                                                step="1"
+                                                onChange={e => setPngProps({ quality: e.target.value, algorithm:pngProps.algorithm })}
+                                                id="myRange"></input>
+                                        </>
+                                    }
+                                  
+                                </div>
+                            </div>
+                        </>
                     } 
                 </div>
 
                 <div className={styles.grid}>
                 <div className="grid grid-cols-1 md:grid-cols-2">
                         <div>
-                            <img src={imagePreview} alt="ilk"/>
+                            <img src={imagePreview} />
                         </div>
                         {
                             statistics != null &&
