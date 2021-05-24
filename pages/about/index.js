@@ -127,6 +127,21 @@ const About = () => {
                     />
                 </div>
                 <div>
+                    <BasicCard
+                        title="6. PNG Testi"
+                        content="Artık PNG resimleri 3 farklı algoritma ile test edebiliyoruz"
+                        videoId="IzStfhA18yE"
+                    />
+                </div>
+                <div>
+                    <BasicCard
+                        title="🏝️ Logomuzu Seçtik"
+                        content="Ekibimizin ayrı ayrı tasarladığı 10 tane logo arasından logomuzu seçtik"
+                        videoId="IzStfhA18yE"
+                    />
+                </div>
+                
+                <div>
 
                 </div>
 
