@@ -109,17 +109,20 @@ const Home = () => {
             </Head>
 
             <main className={styles.main}>
+                <img src={"/logo.png"} width="64" />
                 <h1 className={styles.title}>
                     Friday Team <a href="https://nextjs.org">Resim Sıkıştırma</a>
                 </h1>
 
                 <p className={`text-2xl text-blue-600 p-2`}>
                     <a href="/about">
-                  
-                Hakkımızda Sayfamız
+
+                        Hakkımızda Sayfamız
                     </a>
                     {/* <code className={styles.code}>---</code> */}
                 </p>
+
+
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <input
@@ -166,10 +169,10 @@ const Home = () => {
                             <div className="">
                                 <div className="w-full" >
                                     <p>PNG için bir algoritma seçiniz</p>
-                                    <select 
-                                    name="png_algorithm" 
-                                    class="px-10 py-3 rounded" 
-                                    onChange={(e) => setPngProps({algorithm:e.target.value, quality:pngProps.quality})}>
+                                    <select
+                                        name="png_algorithm"
+                                        class="px-10 py-3 rounded"
+                                        onChange={(e) => setPngProps({ algorithm: e.target.value, quality: pngProps.quality })}>
                                         <option value="pngout">PNGOUT</option>
                                         <option value="pngcrush">PNGCRUSH</option>
                                         <option value="webp">PNG {"->"} WEBP</option>
@@ -178,7 +181,7 @@ const Home = () => {
                                     {
                                         pngProps.algorithm == 'webp' &&
                                         <>
-                                        <p>Resmin kalitesini 1-100 arasında bir değer olarak seçiniz</p>
+                                            <p>Resmin kalitesini 1-100 arasında bir değer olarak seçiniz</p>
                                             <p>quality Değeri: {Number(pngProps.quality).toFixed(2)}</p>
                                             <input
                                                 type="range"
@@ -187,32 +190,32 @@ const Home = () => {
                                                 value={pngProps.quality}
                                                 className={styles.slider}
                                                 step="1"
-                                                onChange={e => setPngProps({ quality: e.target.value, algorithm:pngProps.algorithm })}
+                                                onChange={e => setPngProps({ quality: e.target.value, algorithm: pngProps.algorithm })}
                                                 id="myRange"></input>
                                         </>
                                     }
-                                  
+
                                 </div>
                             </div>
                         </>
-                    } 
+                    }
                 </div>
 
                 <div className={styles.grid}>
-                <div className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2">
                         <div>
                             <img src={imagePreview} />
                         </div>
                         {
                             statistics != null &&
                             <div>
-                            <img 
-                            alt="iki" 
-                            onError="this.onerror=null; this.src='image.png'"
-                            src={`${API_URL}/${statistics && statistics.statistics && statistics.statistics[0].path_out_new}`} />
-                            </div> 
+                                <img
+                                    alt="iki"
+                                    onError="this.onerror=null; this.src='image.png'"
+                                    src={`${API_URL}/${statistics && statistics.statistics && statistics.statistics[0].path_out_new}`} />
+                            </div>
                         }
-                      
+
                     </div>
                 </div>
 
@@ -230,7 +233,7 @@ const Home = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        statistics && statistics.statistics && statistics.statistics.map((e,i) => {
+                                        statistics && statistics.statistics && statistics.statistics.map((e, i) => {
                                             return (
                                                 <tr key={i}>
                                                     <td>{e.size_in}</td>
