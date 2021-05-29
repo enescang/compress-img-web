@@ -14,16 +14,16 @@ const About = () => {
             <div className="flex flexrap flex-col md:flex-row justify-evenly items-center">
             <div className="m-4">
                     <img className="rounded-full" src="enes.jpg" />
-                    <p className="text-center">Enes can güneş</p>
+                    <p className="text-center">Enes Can Güneş</p>
                     <p className="text-center">200541078</p>
                 </div>
                 <div className="m-4">
-                    <img src="batuhan.jpg" />
+                    <img className="rounded-full" src="batuhan.jpg" width="200px" />
                     <p className="text-center">Batuhan Çakıroğlu</p>
                     <p className="text-center">200541081</p>
                 </div>
                 <div className="m-4">
-                    <img src="yasir.jpg" />
+                    <img className="rounded-full" src="yasir.jpg" width="200px" />
                     <p className="text-center">Yasir Seyyithan Karadağ</p>
                     <p className="text-center">200541074</p>
                 </div>
