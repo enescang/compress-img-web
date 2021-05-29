@@ -5,9 +5,27 @@ const About = () => {
     return (
         <div className="container mx-auto">
             <div class="flex justify-center items-center mt-4">
-                <div class="text-center bg-blue-400">
+            <div class="text-center bg-blue-400">
                     <h1 class="text-3xl">Friday Team Compress Image</h1>
                     <p class="text-xl">Hâlen düzenlenmektedir.</p>
+                </div>
+            </div>
+            <p className="text-center text-2xl text-blue-400"><a href="../">Web Sitemiz</a></p>
+            <div className="flex flexrap flex-col md:flex-row justify-evenly items-center">
+            <div className="m-4">
+                    <img className="rounded-full" src="enes.jpg" />
+                    <p className="text-center">Enes can güneş</p>
+                    <p className="text-center">200541078</p>
+                </div>
+                <div className="m-4">
+                    <img src="batuhan.jpg" />
+                    <p className="text-center">Batuhan Çakıroğlu</p>
+                    <p className="text-center">200541081</p>
+                </div>
+                <div className="m-4">
+                    <img src="yasir.jpg" />
+                    <p className="text-center">Yasir Seyyithan Karadağ</p>
+                    <p className="text-center">200541074</p>
                 </div>
             </div>
 
@@ -135,7 +153,7 @@ const About = () => {
                 </div>
                 <div>
                     <BasicCard
-                        title="🏝️ Logomuzu Seçtik"
+                        title="7. 🏝️ Logomuzu Seçtik"
                         content="Ekibimizin ayrı ayrı tasarladığı 10 tane logo arasından logomuzu seçtik"
                         videoId="IzStfhA18yE"
                     />
