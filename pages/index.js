@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import Head from 'next/head'
+import ReactNotification, {store} from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 import styles from '../styles/Home.module.css'
 
-const API_URL = "https://compres-img.herokuapp.com";
-//const API_URL = "http://localhost:3310";
+// const API_URL = "https://compres-img.herokuapp.com";
+const API_URL = "http://localhost:3310";
 
 const Home = () => {
 
@@ -13,10 +15,12 @@ const Home = () => {
     const [fileExtension, setFileExtension] = useState(null);
     const [gifProps, setGifProps] = useState({ scale: 0 });
     const [pngProps, setPngProps] = useState({ algorithm: 'pngout', quality: 100 });
+    const [jpgProps, setJpgProps] = useState({ quality: 60 });
     const [statistics, setStatistics] = useState(null)
 
     const changeImage = async (event) => {
         const extension = event.target.files.item(0).name.split('.').pop();
+        alert(extension)
         setFileExtension(extension.toLowerCase());
         setImage(event.target.files[0]);
         setImagePreview(URL.createObjectURL(event.target.files[0]))
@@ -25,7 +29,19 @@ const Home = () => {
     const handleRequest = () => {
         console.log(image)
         if (image == null) {
-            alert('Resim seçilmedi');
+            store.addNotification({
+                title: "Uyarı!",
+                message: "Lütfen bir resim seçiniz...",
+                type: "danger",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+            });
             return;
         }
         const type = image.type;
@@ -47,6 +63,10 @@ const Home = () => {
         if (extension == 'png') {
             return PNG_REQUEST();
         }
+
+        if (extension == 'jpg' || extension == 'jpeg') {
+            return JPG_REQUEST();
+        }
     }
 
     const GIF_REQUEST = async () => {
@@ -64,7 +84,19 @@ const Home = () => {
             return alert('İstek başarısız erro');
         }
         setStatistics(result);
-        alert(JSON.stringify(result))
+        store.addNotification({
+            title: "İşlem Başarılı!",
+            message: "Seçtiğiniz gif resmi sıkıştırıldı",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+        });
     }
 
     const SVG_REQUEST = async () => {
@@ -80,7 +112,19 @@ const Home = () => {
             return alert('İstek başarısız erro');
         }
         setStatistics(result);
-        alert(JSON.stringify(result))
+        store.addNotification({
+            title: "İşlem Başarılı!",
+            message: "Seçtiğiniz svg resmi sıkıştırıldı",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+        });
     }
 
     const PNG_REQUEST = async () => {
@@ -98,10 +142,53 @@ const Home = () => {
             return alert('İstek başarısız PNG');
         }
         setStatistics(result);
-        alert(JSON.stringify(result))
+        store.addNotification({
+            title: "İşlem Başarılı!",
+            message: "Seçtiğiniz png resmi sıkıştırıldı",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+        });
+    }
+
+    const JPG_REQUEST = async () => {
+        let formData = new FormData();
+        formData.append('img', image);
+        formData.append('quality', jpgProps.quality);
+        const Request = await fetch(API_URL + "/jpg",
+            {
+                body: formData,
+                method: "post"
+            });
+        const result = await Request.json();
+        if (Request.status != 200) {
+            return alert('İstek başarısız JPG');
+        }
+        setStatistics(result);
+        store.addNotification({
+            title: "İşlem Başarılı!",
+            message: "Seçtiğiniz jpeg resmi sıkıştırıldı",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+        });
     }
 
     return (
+        <>
+         <ReactNotification />
         <div className={styles.container}>
             <Head>
                 <title>Friday Team Compress Image</title>
@@ -164,6 +251,26 @@ const Home = () => {
                         </>
                     }
                     {
+                        (fileExtension == "jpg" || fileExtension == "jpeg") &&
+                        <>
+                            <div className="">
+                                <div className="w-full" >
+                                    <p>JPG için kalite değeri seçiniz</p>
+                                    <p>Kalite Değeri: {Number(jpgProps.quality).toFixed(2)}</p>
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max="100"
+                                        value={jpgProps.quality}
+                                        className={styles.slider}
+                                        step="0.1"
+                                        onChange={e => setJpgProps({ quality: e.target.value })}
+                                        id="myRange"></input>
+                                </div>
+                            </div>
+                        </>
+                    }
+                    {
                         fileExtension == 'png' &&
                         <>
                             <div className="">
@@ -212,7 +319,7 @@ const Home = () => {
                                 <img
                                     alt="iki"
                                     onError="this.onerror=null; this.src='image.png'"
-                                    src={`${API_URL}/${statistics && statistics.statistics && statistics.statistics[0].path_out_new}`} />
+                                    src={`${API_URL}/${statistics && statistics.statistics && statistics.statistics[0].path_out_new}?q=${Math.random()}`} />
                             </div>
                         }
 
@@ -264,6 +371,7 @@ const Home = () => {
                 </a>
             </footer>
         </div>
+        </>
     )
 }
 

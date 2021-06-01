@@ -5,9 +5,8 @@ const About = () => {
     return (
         <div className="container mx-auto">
             <div class="flex justify-center items-center mt-4">
-            <div class="text-center bg-blue-400">
+            <div class="text-center bg-blue-400  p-4">
                     <h1 class="text-3xl">Friday Team Compress Image</h1>
-                    <p class="text-xl">Hâlen düzenlenmektedir.</p>
                 </div>
             </div>
             <p className="text-center text-2xl text-blue-400"><a href="../">Web Sitemiz</a></p>
@@ -30,7 +29,7 @@ const About = () => {
             </div>
 
             <p className="text-center text-3xl">Github Repoları</p>
-            <p className="text-center">Şu an repolar gizlidir. Proje teslim edilirken açılacaktır</p>
+            <p className="text-center">Repolar public olarak düzenlendi.</p>
             <div className="flex justify-center">
                 <div className="m-2">
                     <a
@@ -96,6 +95,33 @@ const About = () => {
 		C438.536,184.851,428.728,148.168,409.132,114.573z" />
                         </svg>
                         <span>WEB - Frontend</span>
+                    </a>
+                </div>
+
+                <div>
+
+                </div>
+            </div>
+
+            <p className="text-center text-3xl">Dökümanlar</p>
+            <div className="flex justify-center">
+                <div className="m-2">
+                    <a
+                        href="https://drive.google.com/file/d/14HN6jKMHDfeq4wpeSXLClouV2OTswg5K/view?usp=sharing"
+                        target="_blank"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <span>Uygulama Dökümanı</span>
+                    </a>
+                </div>
+
+                <div className="m-2">
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <span>Kullanıcı Klavuzu</span>
                     </a>
                 </div>
 
