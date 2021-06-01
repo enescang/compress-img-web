@@ -4,8 +4,8 @@ import ReactNotification, {store} from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import styles from '../styles/Home.module.css'
 
-// const API_URL = "https://compres-img.herokuapp.com";
-const API_URL = "http://localhost:3310";
+const API_URL = "https://compres-img.herokuapp.com";
+// const API_URL = "http://localhost:3310";
 
 const Home = () => {
 
