@@ -184,6 +184,8 @@ const About = () => {
                         videoId="IzStfhA18yE"
                     />
                 </div>
+
+<div> <BasicCard title="8. Projeye Son Bakış Jpg Testi" content="Son olarak jpg sıkıştırma işlemi de bitmiş durumda" videoId="8seLtX2Up34" /> </div>
                 
                 <div>
 
